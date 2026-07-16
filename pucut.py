@@ -1,4 +1,5 @@
 #colorscheme: 574964, 9F8383, C8AAAA, FFDAB3
+# basics almost done, to-do for tmmrw: settings to disable music cuz its annoying af, longer happyiness cycles, styling, maybe a mini-game for playing?
 import pygame
 from tkinter import *
 import tkinter.messagebox
@@ -37,6 +38,9 @@ mainframe.pack(pady=2, padx=2)
 def setname():
     global petname
     petname= nameset.get()
+    file = open("save.txt","w")
+    file.write(f'"{petname}"')
+    file.close()
     
 def namepet():
     name_win = tkinter.Toplevel(
@@ -49,7 +53,7 @@ def namepet():
     submit = tkinter.Button(
     name_win,
     text="Name your Pucut!!! :DD",   
-    padx=0.5,         
+    padx=1,         
     pady=2,             
     command=setname)
     submit.pack(pady=5)
@@ -181,6 +185,18 @@ pucut = tkinter.Label(mainframe, image=petzoomed, background= bg_color)
 pucut.pack(anchor=S, pady=5)
 desc= tkinter.Label(mainframe, background= bg_color, text= petname + " is happy")
 desc.pack(anchor=S, pady=3)
+settings_button = tkinter.Button(
+    mainframe,
+    text="Settings", 
+    font=("Arial", 10),  
+    padx=0.5,         
+    pady=2,             
+    bg= bg_color,
+    bd= 0,
+    highlightthickness=0,
+    fg= font_color,
+    activebackground= bg_color)
+settings_button.pack(side= BOTTOM, padx=20, pady= 20)
 hauptloop()
 musicloop()
 iniiiiiit()
