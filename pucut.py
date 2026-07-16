@@ -17,6 +17,7 @@ pet= PhotoImage(file="images/virtual pet 1.png")
 sleeping= False
 musicactive = True
 musictone = "happy"
+petname= "pucut"
 happynesscycle= True
 petzoomed= pet.zoom(4)
 petexpressions=["images/virtual pet 1.png", "images/virtual pet happy.png", "images/virtual pet sad.png", "images/virtual pet sleeping.png", "images/virtual pet tired.png", "images/virtual pet very happy.png"]
@@ -45,14 +46,19 @@ def hauptloop():
         if happyness<=3 and tired>=3:
         #make bg music sad here
             pet = tkinter.PhotoImage(file= petexpressions[2])
+            desc.config(text= petname +  " is sad :(")
         if happyness>=4 and tired>=3:
             pet = tkinter.PhotoImage(file= petexpressions[0])
+            desc.config(text= petname +  " doesnt feel so great")
         if happyness>=6 and tired>=3:
             pet = tkinter.PhotoImage(file= petexpressions[1])
+            desc.config(text= petname +  " feels alright!")
         if happyness>=8 and tired>=3:
             pet = tkinter.PhotoImage(file= petexpressions[5])
+            desc.config(text= petname +  " is very happy and feels loved :D")
         if tired<=3:
             pet= tkinter.PhotoImage(file= petexpressions[4])
+            desc.config(text= petname +  " is very tired and slowly sinking into existential dread.")
         petzoomed= pet.zoom(4)
         pucut.config(image=petzoomed)
         print ("restarting loop")
@@ -106,8 +112,7 @@ def play():
     happyness +=2
     tired-=1
 
-pucut = tkinter.Label(mainframe, image=petzoomed, background= bg_color)
-pucut.pack(anchor=S, pady=5)
+
 food_button = tkinter.Button(
     buttonframe,
     width=10, 
@@ -138,6 +143,10 @@ play_button = tkinter.Button(
     text= "play"
 )
 play_button.pack(side=LEFT, padx=3)
+pucut = tkinter.Label(mainframe, image=petzoomed, background= bg_color)
+pucut.pack(anchor=S, pady=5)
+desc= tkinter.Label(mainframe, background= bg_color, text= petname + " is happy")
+desc.pack(anchor=S, pady=3)
 hauptloop()
 musicloop()
 window.mainloop()
