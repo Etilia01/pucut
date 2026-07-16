@@ -1,4 +1,5 @@
 #colorscheme: 574964, 9F8383, C8AAAA, FFDAB3
+import pygame
 from tkinter import *
 import tkinter.messagebox
 from tkinter import filedialog as fd
@@ -14,12 +15,22 @@ window.iconphoto(False, icon_image)
 window.configure(background = bg_color)
 pet= PhotoImage(file="images/virtual pet 1.png")
 sleeping= False
+musicactive = True
+musictone = "happy"
 happynesscycle= True
 petzoomed= pet.zoom(4)
 petexpressions=["images/virtual pet 1.png", "images/virtual pet happy.png", "images/virtual pet sad.png", "images/virtual pet sleeping.png", "images/virtual pet tired.png", "images/virtual pet very happy.png"]
+pygame.init()
+pygame.mixer.music.load("music/happy song.mp3")
+pygame.mixer.music.play()
 mainframe = Frame (
     bg= bg_color
 )
+buttonframe = Frame (
+    mainframe,
+    bg =bg_color
+)
+buttonframe.pack(pady=1, padx=1)
 mainframe.pack(pady=2, padx=2)
 
 def hauptloop():
@@ -27,9 +38,9 @@ def hauptloop():
     
     if sleeping is False:
         if happynesscycle:
-            if happyness <=10 and happyness >=0:
+            if happyness >=0:
                 happyness -=1
-            if tired <=10 and tired >=0:
+            if tired >=0:
                tired -=1
         if happyness<=3 and tired>=3:
         #make bg music sad here
@@ -48,10 +59,34 @@ def hauptloop():
         window.after(1000, hauptloop)
 
     #maybe i should update the window here? idk
+def musicloop():
+    global musictone
+    if musicactive:
+        if not pygame.mixer.music.get_busy():
+            if happyness<=5:
+                pygame.mixer.music.load("music/sad song.mp3")
+                pygame.mixer.music.play()
+                musictone= "sad"
+            else:
+                pygame.mixer.music.load("music/happy song.mp3")
+                pygame.mixer.music.play()
+                musictone= "happy"
+        if happyness<=5 and musictone== "happy":
+            pygame.mixer.music.stop()
+            pygame.mixer.music.load("music/sad song.mp3")
+            pygame.mixer.music.play()
+            musictone= "sad"
+        if happyness>=6 and musictone== "sad":
+            pygame.mixer.music.stop()
+            pygame.mixer.music.load("music/happy song.mp3")
+            pygame.mixer.music.play()
+            musictone= "happy"
+        window.after(1000, musicloop)
 
 def food():
     global happyness
     happyness +=1
+    print (happyness)
 def sleep():
     global pet, petzoomed, tired, sleeping
     sleeping = True
@@ -74,32 +109,35 @@ def play():
 pucut = tkinter.Label(mainframe, image=petzoomed, background= bg_color)
 pucut.pack(anchor=S, pady=5)
 food_button = tkinter.Button(
-    mainframe,
+    buttonframe,
     width=10, 
-    height=5,  
+    height=2,  
     padx=2,         
     pady=2,             
     command=food,
-    relief= None
+    text= "food"
 )
 food_button.pack(side=LEFT, padx=3)
 sleep_button = tkinter.Button(
-    mainframe,
+    buttonframe,
     width=10, 
-    height=5,  
+    height=2,  
     padx=2,         
     pady=2,             
     command=sleep,
+    text = "sleep"
 )
 sleep_button.pack(side=LEFT, padx=3)
 play_button = tkinter.Button(
-    mainframe,
+    buttonframe,
     width=10, 
-    height=5,  
+    height=2,  
     padx=2,         
     pady=2,             
     command=play,
+    text= "play"
 )
 play_button.pack(side=LEFT, padx=3)
 hauptloop()
+musicloop()
 window.mainloop()
