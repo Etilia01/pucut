@@ -17,13 +17,14 @@ pet= PhotoImage(file="images/virtual pet 1.png")
 sleeping= False
 musicactive = True
 musictone = "happy"
-petname= "pucut"
+petname= "none"
 happynesscycle= True
 petzoomed= pet.zoom(4)
 petexpressions=["images/virtual pet 1.png", "images/virtual pet happy.png", "images/virtual pet sad.png", "images/virtual pet sleeping.png", "images/virtual pet tired.png", "images/virtual pet very happy.png"]
 pygame.init()
 pygame.mixer.music.load("music/happy song.mp3")
 pygame.mixer.music.play()
+nameset = tkinter.StringVar()
 mainframe = Frame (
     bg= bg_color
 )
@@ -33,7 +34,34 @@ buttonframe = Frame (
 )
 buttonframe.pack(pady=1, padx=1)
 mainframe.pack(pady=2, padx=2)
-
+def setname():
+    global petname
+    petname= nameset.get()
+    
+def namepet():
+    name_win = tkinter.Toplevel(
+        bg= bg_color,)
+    name_win.title("Name your Pucut!")
+    name_win.geometry("200x200")
+    name_win.attributes('-topmost', True)
+    nameentry = tkinter.Entry(name_win, textvariable=nameset)
+    nameentry.pack(pady=15)
+    submit = tkinter.Button(
+    name_win,
+    text="Name your Pucut!!! :DD",   
+    padx=0.5,         
+    pady=2,             
+    command=setname)
+    submit.pack(pady=5)
+def iniiiiiit():
+    global petname
+    file = open("save.txt","r")
+    file_list = eval(file.read())
+    file.close()
+    petname= file_list
+    if petname== "none":
+        print("name is none")
+        namepet()
 def hauptloop():
     global happyness, tired, pet, petzoomed
     
@@ -91,7 +119,10 @@ def musicloop():
 
 def food():
     global happyness
-    happyness +=1
+    if happyness <= 10:
+        happyness +=1
+    else:
+        desc.config(text= petname + " is already full. Maybe later :]")
     print (happyness)
 def sleep():
     global pet, petzoomed, tired, sleeping
@@ -109,8 +140,11 @@ def sleep():
         hauptloop()
 def play():
     global happyness, tired
-    happyness +=2
-    tired-=1
+    if happyness <=10:
+        happyness +=2
+        tired-=1
+    else:
+        desc.config(text= petname + " is already very happy and doesnt want to play!")
 
 
 food_button = tkinter.Button(
@@ -149,4 +183,5 @@ desc= tkinter.Label(mainframe, background= bg_color, text= petname + " is happy"
 desc.pack(anchor=S, pady=3)
 hauptloop()
 musicloop()
+iniiiiiit()
 window.mainloop()
