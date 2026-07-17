@@ -1,5 +1,5 @@
 #colorscheme: 574964, 9F8383, C8AAAA, FFDAB3
-# basics almost done, to-do for tmmrw: settings to disable music cuz its annoying af, longer happyiness cycles, styling, maybe a mini-game for playing?
+# basics almost done, to-do for tmmrw: longer happyiness cycles, styling, maybe a mini-game for playing?
 import pygame
 from tkinter import *
 import tkinter.messagebox
@@ -9,23 +9,36 @@ font_color= "#FFDAB3"
 happyness= 10
 tired= 10
 window = Tk()
-window.geometry("400x400")
+window.geometry("380x500")
 window.title("Pucut <3")
 icon_image = tkinter.PhotoImage(file="images/icon.png")
 window.iconphoto(False, icon_image)
 window.configure(background = bg_color)
 pet= PhotoImage(file="images/virtual pet 1.png")
+edgedecor= PhotoImage(file="images/edge decor.png")
+edgedecor1= edgedecor.zoom(3)
+edgedecor2 = PhotoImage(file="images/edge2.png")
+edgedecor3 = PhotoImage(file="images/edge3.png")
+edgedecor4 = PhotoImage(file="images/edge4.png")
+edgedecor2big = edgedecor2.zoom(3)
+edgedecor3big = edgedecor3.zoom(3)
+edgedecor4big = edgedecor4.zoom(3)
 sleeping= False
 musicactive = True
 musictone = "happy"
 petname= "none"
 happynesscycle= True
 petzoomed= pet.zoom(4)
-petexpressions=["images/virtual pet 1.png", "images/virtual pet happy.png", "images/virtual pet sad.png", "images/virtual pet sleeping.png", "images/virtual pet tired.png", "images/virtual pet very happy.png"]
+petexpressions=["images/virtual pet 1.png", "images/virtual pet happy.png", "images/virtual pet sad.png", "images/virtual pet sleeping.png", "images/virtual pet tired.png", "images/virtual pet very happy.png", "images/virtual pet 2.png"]
 pygame.init()
 pygame.mixer.music.load("music/happy song.mp3")
 pygame.mixer.music.play()
 nameset = tkinter.StringVar()
+edge1 = tkinter.Label(window, image=edgedecor1, background= bg_color)
+edge1.pack(side=tkinter.TOP, anchor=tkinter.NW)
+edge2 = tkinter.Label(window, image=edgedecor2big, background= bg_color)
+edge2.pack(side=tkinter.TOP, anchor=tkinter.NE)
+
 mainframe = Frame (
     bg= bg_color
 )
@@ -33,8 +46,9 @@ buttonframe = Frame (
     mainframe,
     bg =bg_color
 )
-buttonframe.pack(pady=1, padx=1)
-mainframe.pack(pady=2, padx=2)
+mainframe.pack(pady=35, padx=2)
+
+
 def setname():
     global petname
     petname= nameset.get()
@@ -90,13 +104,16 @@ def hauptloop():
         if happyness>=8 and tired>=3:
             pet = tkinter.PhotoImage(file= petexpressions[5])
             desc.config(text= petname +  " is very happy and feels loved :D")
-        if tired<=3:
+        if tired<=3 and happyness >=2:
             pet= tkinter.PhotoImage(file= petexpressions[4])
             desc.config(text= petname +  " is very tired and slowly sinking into existential dread.")
+        if tired<=3 and happyness <=1:
+            pet= tkinter.PhotoImage(file= petexpressions[6])
+            desc.config(text= petname +  " IzhsbskuoIGUFVsuiazgboa")
         petzoomed= pet.zoom(4)
         pucut.config(image=petzoomed)
         print ("restarting loop")
-        window.after(1000, hauptloop)
+        window.after(10000, hauptloop)
 
     #maybe i should update the window here? idk
 def musicloop():
@@ -187,6 +204,8 @@ def musicsettings():
         file.write(str([petname, musicactive]))
         file.close()
 
+buttonframe.pack(pady=1, padx=1)
+
 food_button = tkinter.Button(
     buttonframe,
     width=10, 
@@ -234,6 +253,10 @@ settings_button = tkinter.Button(
     activebackground= bg_color,
     command=open_settings)
 settings_button.pack(side= BOTTOM, padx=20, pady= 20)
+edge3 = tkinter.Label(window, image=edgedecor3big, background= bg_color)
+edge3.pack(side=tkinter.BOTTOM, anchor=tkinter.SE)
+edge4 = tkinter.Label(window, image=edgedecor4big, background= bg_color)
+edge4.pack(side=tkinter.BOTTOM, anchor=tkinter.SW)
 hauptloop()
 musicloop()
 iniiiiiit()
