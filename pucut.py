@@ -35,10 +35,13 @@ pygame.mixer.music.load("music/happy song.mp3")
 pygame.mixer.music.play()
 nameset = tkinter.StringVar()
 edge1 = tkinter.Label(window, image=edgedecor1, background= bg_color)
-edge1.pack(side=tkinter.TOP, anchor=tkinter.NW)
+edge1.place(relx=0.0, rely=0.0, anchor=tkinter.NW)
 edge2 = tkinter.Label(window, image=edgedecor2big, background= bg_color)
-edge2.pack(side=tkinter.TOP, anchor=tkinter.NE)
-
+edge2.place(relx=1.0, rely=0.0, anchor=tkinter.NE)
+edge3 = tkinter.Label(window, image=edgedecor3big, background= bg_color)
+edge3.place(relx=1.0, rely=1.0, anchor=tkinter.SE)
+edge4 = tkinter.Label(window, image=edgedecor4big, background= bg_color)
+edge4.place(relx=0.0, rely=1.0, anchor=tkinter.SW)
 mainframe = Frame (
     bg= bg_color
 )
@@ -46,7 +49,7 @@ buttonframe = Frame (
     mainframe,
     bg =bg_color
 )
-mainframe.pack(pady=35, padx=2)
+mainframe.pack(pady=50, padx=2)
 
 
 def setname():
@@ -253,10 +256,8 @@ settings_button = tkinter.Button(
     activebackground= bg_color,
     command=open_settings)
 settings_button.pack(side= BOTTOM, padx=20, pady= 20)
-edge3 = tkinter.Label(window, image=edgedecor3big, background= bg_color)
-edge3.pack(side=tkinter.BOTTOM, anchor=tkinter.SE)
-edge4 = tkinter.Label(window, image=edgedecor4big, background= bg_color)
-edge4.pack(side=tkinter.BOTTOM, anchor=tkinter.SW)
+
+
 hauptloop()
 musicloop()
 iniiiiiit()
