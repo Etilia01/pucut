@@ -39,7 +39,7 @@ def setname():
     global petname
     petname= nameset.get()
     file = open("save.txt","w")
-    file.write(f'"{petname}"')
+    file.write(str([petname, musicactive]))
     file.close()
     
 def namepet():
@@ -58,14 +58,16 @@ def namepet():
     command=setname)
     submit.pack(pady=5)
 def iniiiiiit():
-    global petname
+    global petname, musicactive
     file = open("save.txt","r")
     file_list = eval(file.read())
     file.close()
-    petname= file_list
+    petname, musicactive= file_list
     if petname== "none":
         print("name is none")
         namepet()
+    if musicactive== False:
+        pygame.mixer.music.stop()
 def hauptloop():
     global happyness, tired, pet, petzoomed
     
@@ -149,7 +151,41 @@ def play():
         tired-=1
     else:
         desc.config(text= petname + " is already very happy and doesnt want to play!")
-
+def open_settings():
+    settings_win = tkinter.Toplevel(
+        bg= bg_color,)
+    settings_win.title("Settings")
+    settings_win.geometry("200x200")
+    settings_win.attributes('-topmost', True)
+    
+    submit = tkinter.Button(
+    settings_win,
+    text="Disable/Enable Music",   
+    padx=1,         
+    pady=2,             
+    command=musicsettings)
+    submit.pack(pady=5)
+    submit2 = tkinter.Button(
+    settings_win,
+    text="Rename your Pucut",   
+    padx=1,         
+    pady=2,             
+    command=namepet)
+    submit2.pack(pady=5)
+def musicsettings():
+    global musicactive
+    if musicactive:
+        musicactive= False
+        pygame.mixer.music.stop()
+        file = open("save.txt","w")
+        file.write(str([petname, musicactive]))
+        file.close()
+    else:
+        musicactive = True
+        musicloop()
+        file = open("save.txt","w")
+        file.write(str([petname, musicactive]))
+        file.close()
 
 food_button = tkinter.Button(
     buttonframe,
@@ -195,7 +231,8 @@ settings_button = tkinter.Button(
     bd= 0,
     highlightthickness=0,
     fg= font_color,
-    activebackground= bg_color)
+    activebackground= bg_color,
+    command=open_settings)
 settings_button.pack(side= BOTTOM, padx=20, pady= 20)
 hauptloop()
 musicloop()
