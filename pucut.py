@@ -12,7 +12,7 @@ font_color= "#FFDAB3"
 happyness= 10
 tired= 10
 window = Tk()
-window.geometry("380x520")
+window.geometry("400x560")
 window.title("Pucut <3")
 icon_image = tkinter.PhotoImage(file="images/icon.png")
 window.iconphoto(False, icon_image)
@@ -55,8 +55,8 @@ try:
     libfc.FcConfigAppFontAddFile(None, ttf2)
 except Exception as e:
     print(f"Font couldnt be loaded cuz {e}")
-font1 = f.Font(family="Rubik Glitch", size=10)
-font2 = f.Font(family="Kablammo", size=10)
+font1 = f.Font(family="Rubik Glitch", size=15)
+font2 = f.Font(family="Kablammo", size=15)
 
 edge1 = tkinter.Label(window, image=edgedecor1, background= bg_color)
 edge1.place(relx=0.0, rely=0.0, anchor=tkinter.NW)
@@ -283,7 +283,7 @@ play_button = tkinter.Button(
 play_button.pack(side=LEFT, padx=3)
 pucut = tkinter.Label(mainframe, image=petzoomed, background= bg_color)
 pucut.pack(anchor=S, pady=5)
-desc= tkinter.Label(mainframe, background= bg_color, text= petname + " is happy", font= font2
+desc= tkinter.Label(mainframe, background= bg_color, text= petname + " is happy", font= font2, fg= font_color, wraplength=300
 )
 desc.pack(anchor=S, pady=3)
 settings_button = tkinter.Button(
