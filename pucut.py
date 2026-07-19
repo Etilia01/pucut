@@ -1,5 +1,5 @@
 #colorscheme: 574964, 9F8383, C8AAAA, FFDAB3
-# basics almost done, to-do: adding variants, fix the name being none the first loop, maybe a mini-game for playing?
+# basics almost done, to-do: adding variants, maybe a mini-game for playing?
 import ctypes
 import os
 import pygame
@@ -104,9 +104,12 @@ def iniiiiiit():
     file_list = eval(file.read())
     file.close()
     petname, musicactive= file_list
+    
     if petname== "none":
         print("name is none")
         namepet()
+    else:
+        desc.config(text= petname +  " says hi!")
     if musicactive== False:
         pygame.mixer.music.stop()
 def hauptloop():
