@@ -48,6 +48,7 @@ fontpath1 = os.path.abspath("fonts/Kablammo/Kablammo-Regular-VariableFont_MORF.t
 fontpath2 = os.path.abspath("fonts/Rubik_Glitch/RubikGlitch-Regular.ttf")
 current_variant= "none"
 variants= ["regular", "space"]
+loopwithoutminus= False
 
 try:
     libfc = ctypes.CDLL("libfontconfig.so.1")
@@ -122,9 +123,9 @@ def iniiiiiit():
     if current_variant== "space":
         petexpressions=["images/space 1.png", "images/space happy.png", "images/space sad.png", "images/space sleeping.png", "images/space tired.png", "images/space very happy.png", "images/space 2.png"]
 def hauptloop():
-    global happyness, tired, pet, petzoomed
+    global happyness, tired, pet, petzoomed, loopwithoutminus
     
-    if sleeping is False:
+    if sleeping is False and loopwithoutminus== False:
         if happynesscycle:
             if happyness >=0:
                 happyness -=1
@@ -133,25 +134,29 @@ def hauptloop():
         if happyness<=3 and tired>=3:
         #make bg music sad here
             pet = tkinter.PhotoImage(file= petexpressions[2])
-            desc.config(text= petname +  " is sad :(")
+            desc.config(text= petname +  " is sad :(", font= font2, fg= font_color)
         if happyness>=4 and tired>=3:
             pet = tkinter.PhotoImage(file= petexpressions[0])
-            desc.config(text= petname +  " doesnt feel so great")
+            desc.config(text= petname +  " doesnt feel so great", font= font2, fg= font_color)
         if happyness>=6 and tired>=3:
             pet = tkinter.PhotoImage(file= petexpressions[1])
-            desc.config(text= petname +  " feels alright!")
+            desc.config(text= petname +  " feels alright!", font= font2, fg= font_color)
         if happyness>=8 and tired>=3:
             pet = tkinter.PhotoImage(file= petexpressions[5])
-            desc.config(text= petname +  " is very happy and feels loved :D")
+            desc.config(text= petname +  " is very happy and feels loved :D", font= font2, fg= font_color)
         if tired<=3 and happyness >=2:
             pet= tkinter.PhotoImage(file= petexpressions[4])
-            desc.config(text= petname +  " is very tired and slowly sinking into existential dread.")
+            desc.config(text= petname +  " is very tired and slowly sinking into existential dread.", font= font2, fg= font_color)
         if tired<=3 and happyness <=1:
             pet= tkinter.PhotoImage(file= petexpressions[6])
-            desc.config(text= petname +  " IzhsbskuoIGUFVsuiazgboa")
+            desc.config(text= "IzhsbskuoIGUFVsuiazgboa", font= font1, fg= "black")
+    
         petzoomed= pet.zoom(4)
         pucut.config(image=petzoomed)
         print ("restarting loop")
+        window.after(10000, hauptloop)
+    if sleeping== False and loopwithoutminus == True:
+        loopwithoutminus= False
         window.after(10000, hauptloop)
 
     #maybe i should update the window here? idk
@@ -185,11 +190,12 @@ def musicloop():
         window.after(1000, musicloop)
 
 def food():
-    global happyness
+    global happyness, loopwithoutminus
     if happyness <= 10:
         happyness +=1
     else:
         desc.config(text= petname + " is already full. Maybe later :]")
+    loopwithoutminus = True
     hauptloop()
     print (happyness)
 def sleep():
@@ -207,12 +213,13 @@ def sleep():
         sleeping= False
         hauptloop()
 def play():
-    global happyness, tired
+    global happyness, tired, loopwithoutminus
     if happyness <=10:
         happyness +=2
         tired-=1
     else:
         desc.config(text= petname + " is already very happy and doesnt want to play!")
+    loopwithoutminus = True
     hauptloop()
 def open_settings():
     settings_win = tkinter.Toplevel(
