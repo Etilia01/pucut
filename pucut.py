@@ -7,6 +7,7 @@ from tkinter import *
 from tkinter import font as f
 import tkinter.messagebox
 from tkinter import filedialog as fd
+import random
 bg_color = "#574964"
 font_color= "#FFDAB3"
 happyness= 10
@@ -45,7 +46,8 @@ pygame.mixer.music.play()
 nameset = tkinter.StringVar()
 fontpath1 = os.path.abspath("fonts/Kablammo/Kablammo-Regular-VariableFont_MORF.ttf")
 fontpath2 = os.path.abspath("fonts/Rubik_Glitch/RubikGlitch-Regular.ttf")
-
+current_variant= "none"
+variants= ["regular", "space"]
 
 try:
     libfc = ctypes.CDLL("libfontconfig.so.1")
@@ -80,7 +82,7 @@ def setname():
     global petname
     petname= nameset.get()
     file = open("save.txt","w")
-    file.write(str([petname, musicactive]))
+    file.write(str([petname, musicactive, current_variant]))
     file.close()
     
 def namepet():
@@ -99,12 +101,17 @@ def namepet():
     command=setname)
     submit.pack(pady=5)
 def iniiiiiit():
-    global petname, musicactive
+    global petname, musicactive, current_variant, petexpressions
     file = open("save.txt","r")
     file_list = eval(file.read())
     file.close()
-    petname, musicactive= file_list
-    
+    petname, musicactive, current_variant= file_list
+    if current_variant== "none":
+        current_variant= random.choice(variants)
+        file = open("save.txt","w")
+        file.write(str([petname, musicactive, current_variant]))
+        file.close()
+        print(current_variant)
     if petname== "none":
         print("name is none")
         namepet()
@@ -112,6 +119,8 @@ def iniiiiiit():
         desc.config(text= petname +  " says hi!")
     if musicactive== False:
         pygame.mixer.music.stop()
+    if current_variant== "space":
+        petexpressions=["images/space 1.png", "images/space happy.png", "images/space sad.png", "images/space sleeping.png", "images/space tired.png", "images/space very happy.png", "images/space 2.png"]
 def hauptloop():
     global happyness, tired, pet, petzoomed
     
@@ -254,13 +263,13 @@ def musicsettings():
         musicactive= False
         pygame.mixer.music.stop()
         file = open("save.txt","w")
-        file.write(str([petname, musicactive]))
+        file.write(str([petname, musicactive, current_variant]))
         file.close()
     else:
         musicactive = True
         musicloop()
         file = open("save.txt","w")
-        file.write(str([petname, musicactive]))
+        file.write(str([petname, musicactive, current_variant]))
         file.close()
 
 buttonframe.pack(pady=1, padx=1)
