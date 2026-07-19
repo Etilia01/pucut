@@ -1,5 +1,5 @@
 #colorscheme: 574964, 9F8383, C8AAAA, FFDAB3
-# basics almost done, to-do for tmmrw: longer happyiness cycles, styling, maybe a mini-game for playing?
+# basics almost done, to-do: adding variants, fix the name being none the first loop, maybe a mini-game for playing?
 import ctypes
 import os
 import pygame
@@ -155,16 +155,21 @@ def musicloop():
                 pygame.mixer.music.load("music/happy song.mp3")
                 pygame.mixer.music.play()
                 musictone= "happy"
-        if happyness<=5 and musictone== "happy":
+        if happyness<=5 and musictone!= "sad" and tired >=4:
             pygame.mixer.music.stop()
             pygame.mixer.music.load("music/sad song.mp3")
             pygame.mixer.music.play()
             musictone= "sad"
-        if happyness>=6 and musictone== "sad":
+        if happyness>=6 and musictone!= "happy":
             pygame.mixer.music.stop()
             pygame.mixer.music.load("music/happy song.mp3")
             pygame.mixer.music.play()
             musictone= "happy"
+        if tired<=3 and happyness <=1 and musictone!= "eldritch":
+            pygame.mixer.music.stop()
+            pygame.mixer.music.load("music/better eldritch.mp3")
+            pygame.mixer.music.play()
+            musictone= "eldritch"
         window.after(1000, musicloop)
 
 def food():
@@ -173,6 +178,7 @@ def food():
         happyness +=1
     else:
         desc.config(text= petname + " is already full. Maybe later :]")
+    hauptloop()
     print (happyness)
 def sleep():
     global pet, petzoomed, tired, sleeping
@@ -195,27 +201,50 @@ def play():
         tired-=1
     else:
         desc.config(text= petname + " is already very happy and doesnt want to play!")
+    hauptloop()
 def open_settings():
     settings_win = tkinter.Toplevel(
         bg= bg_color,)
     settings_win.title("Settings")
     settings_win.geometry("200x200")
     settings_win.attributes('-topmost', True)
-    
-    submit = tkinter.Button(
+    edge12 = tkinter.Label(settings_win, image=edgedecor, background= bg_color)
+    edge12.place(relx=0.0, rely=0.0, anchor=tkinter.NW)
+    edge22 = tkinter.Label(settings_win, image=edgedecor2, background= bg_color)
+    edge22.place(relx=1.0, rely=0.0, anchor=tkinter.NE)
+    edge32 = tkinter.Label(settings_win, image=edgedecor3, background= bg_color)
+    edge32.place(relx=1.0, rely=1.0, anchor=tkinter.SE)
+    edge42 = tkinter.Label(settings_win, image=edgedecor4, background= bg_color)
+    edge42.place(relx=0.0, rely=1.0, anchor=tkinter.SW)
+    anotherframe = Frame (
     settings_win,
+    bg =bg_color
+    )
+    anotherframe.pack(pady=10, padx=2)
+    submit = tkinter.Button(
+    anotherframe,
     text="Disable/Enable Music",   
     padx=1,         
     pady=2,             
-    command=musicsettings)
-    submit.pack(pady=5)
+    command=musicsettings,
+    bg= "#9F8383",
+    bd= 0,
+    highlightthickness=0,
+    fg= font_color,
+    activebackground= "#C8AAAA",)
+    submit.pack(pady=10)
     submit2 = tkinter.Button(
-    settings_win,
+    anotherframe,
     text="Rename your Pucut",   
     padx=1,         
     pady=2,             
-    command=namepet)
-    submit2.pack(pady=5)
+    command=namepet,
+    bg= "#9F8383",
+    bd= 0,
+    highlightthickness=0,
+    fg= font_color,
+    activebackground= "#C8AAAA",)
+    submit2.pack(pady=10)
 def musicsettings():
     global musicactive
     if musicactive:
