@@ -1,5 +1,6 @@
 #colorscheme: 574964, 9F8383, C8AAAA, FFDAB3
-# basics almost done, to-do: adding variants, maybe a mini-game for playing?
+# basics almost done, to-do: adding (more) variants, maybe a mini-game for playing?
+#planned variants: lolita, foresty, bot  maybe?
 import ctypes
 import os
 import pygame
@@ -102,7 +103,7 @@ def namepet():
     command=setname)
     submit.pack(pady=5)
 def iniiiiiit():
-    global petname, musicactive, current_variant, petexpressions
+    global petname, musicactive, current_variant, petexpressions, loopwithoutminus
     file = open("save.txt","r")
     file_list = eval(file.read())
     file.close()
@@ -122,6 +123,8 @@ def iniiiiiit():
         pygame.mixer.music.stop()
     if current_variant== "space":
         petexpressions=["images/space 1.png", "images/space happy.png", "images/space sad.png", "images/space sleeping.png", "images/space tired.png", "images/space very happy.png", "images/space 2.png"]
+        loopwithoutminus = True
+        hauptloop()
 def hauptloop():
     global happyness, tired, pet, petzoomed, loopwithoutminus
     
@@ -156,6 +159,26 @@ def hauptloop():
         print ("restarting loop")
         window.after(10000, hauptloop)
     if sleeping== False and loopwithoutminus == True:
+        if happyness<=3 and tired>=3:
+            pet = tkinter.PhotoImage(file= petexpressions[2])
+            desc.config(text= petname +  " is sad :(", font= font2, fg= font_color)
+        if happyness>=4 and tired>=3:
+            pet = tkinter.PhotoImage(file= petexpressions[0])
+            desc.config(text= petname +  " doesnt feel so great", font= font2, fg= font_color)
+        if happyness>=6 and tired>=3:
+            pet = tkinter.PhotoImage(file= petexpressions[1])
+            desc.config(text= petname +  " feels alright!", font= font2, fg= font_color)
+        if happyness>=8 and tired>=3:
+            pet = tkinter.PhotoImage(file= petexpressions[5])
+            desc.config(text= petname +  " is very happy and feels loved :D", font= font2, fg= font_color)
+        if tired<=3 and happyness >=2:
+            pet= tkinter.PhotoImage(file= petexpressions[4])
+            desc.config(text= petname +  " is very tired and slowly sinking into existential dread.", font= font2, fg= font_color)
+        if tired<=3 and happyness <=1:
+            pet= tkinter.PhotoImage(file= petexpressions[6])
+            desc.config(text= "IzhsbskuoIGUFVsuiazgboa", font= font1, fg= "black")
+        petzoomed= pet.zoom(4)
+        pucut.config(image=petzoomed)
         loopwithoutminus= False
         window.after(10000, hauptloop)
 
@@ -221,6 +244,23 @@ def play():
         desc.config(text= petname + " is already very happy and doesnt want to play!")
     loopwithoutminus = True
     hauptloop()
+def newtype():
+    global current_variant, petexpressions, loopwithoutminus
+    current_variant= random.choice(variants)
+    file = open("save.txt","w")
+    file.write(str([petname, musicactive, current_variant]))
+    file.close()
+    print(current_variant)
+    if current_variant== "space":
+        petexpressions=["images/space 1.png", "images/space happy.png", "images/space sad.png", "images/space sleeping.png", "images/space tired.png", "images/space very happy.png", "images/space 2.png"]
+        loopwithoutminus = True
+        hauptloop()
+    if current_variant=="regular":
+        petexpressions=["images/virtual pet 1.png", "images/virtual pet happy.png", "images/virtual pet sad.png", "images/virtual pet sleeping.png", "images/virtual pet tired.png", "images/virtual pet very happy.png", "images/virtual pet 2.png"]
+        loopwithoutminus = True
+        hauptloop()
+        
+
 def open_settings():
     settings_win = tkinter.Toplevel(
         bg= bg_color,)
@@ -264,6 +304,18 @@ def open_settings():
     fg= font_color,
     activebackground= "#C8AAAA",)
     submit2.pack(pady=10)
+    submit3 = tkinter.Button(
+    anotherframe,
+    text="Reroll Pucut Type",   
+    padx=1,         
+    pady=2,             
+    command=newtype,
+    bg= "#9F8383",
+    bd= 0,
+    highlightthickness=0,
+    fg= font_color,
+    activebackground= "#C8AAAA",)
+    submit3.pack(pady=10)
 def musicsettings():
     global musicactive
     if musicactive:
