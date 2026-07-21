@@ -1,6 +1,6 @@
 #colorscheme: 574964, 9F8383, C8AAAA, FFDAB3
 # basics almost done, to-do: adding (more) variants, maybe a mini-game for playing?
-#planned variants: lolita, foresty, bot  maybe?
+#planned variants: foresty, bot  maybe?
 import ctypes
 import os
 import pygame
@@ -48,7 +48,9 @@ nameset = tkinter.StringVar()
 fontpath1 = os.path.abspath("fonts/Kablammo/Kablammo-Regular-VariableFont_MORF.ttf")
 fontpath2 = os.path.abspath("fonts/Rubik_Glitch/RubikGlitch-Regular.ttf")
 current_variant= "none"
-variants= ["regular", "space"]
+commonvariants= ["regular", "space", "red"]
+uncommonvariants= ["lolita"]
+variantchance= [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
 loopwithoutminus= False
 
 try:
@@ -109,7 +111,11 @@ def iniiiiiit():
     file.close()
     petname, musicactive, current_variant= file_list
     if current_variant== "none":
-        current_variant= random.choice(variants)
+        chance= random.choice(variantchance)
+        if chance==1:
+            current_variant= random.choice(uncommonvariants)
+        else:
+            current_variant= random.choice(commonvariants)
         file = open("save.txt","w")
         file.write(str([petname, musicactive, current_variant]))
         file.close()
@@ -123,6 +129,14 @@ def iniiiiiit():
         pygame.mixer.music.stop()
     if current_variant== "space":
         petexpressions=["images/space 1.png", "images/space happy.png", "images/space sad.png", "images/space sleeping.png", "images/space tired.png", "images/space very happy.png", "images/space 2.png"]
+        loopwithoutminus = True
+        hauptloop()
+    if current_variant== "lolita":
+        petexpressions=["images/cutet 1.png", "images/cute happy.png", "images/cute sad.png", "images/cute sleeping.png", "images/cute tired.png", "images/cute very happy.png", "images/cute 2.png"]
+        loopwithoutminus = True
+        hauptloop()
+    if current_variant== "red":
+        petexpressions=["images/r 1.png", "images/r happy.png", "images/r sad.png", "images/r sleeping.png", "images/r tired.png", "images/r very happy.png", "images/r 2.png"]
         loopwithoutminus = True
         hauptloop()
 def hauptloop():
@@ -216,10 +230,11 @@ def food():
     global happyness, loopwithoutminus
     if happyness <= 10:
         happyness +=1
+        loopwithoutminus = True
+        hauptloop()
     else:
         desc.config(text= petname + " is already full. Maybe later :]")
-    loopwithoutminus = True
-    hauptloop()
+    
     print (happyness)
 def sleep():
     global pet, petzoomed, tired, sleeping
@@ -240,13 +255,18 @@ def play():
     if happyness <=10:
         happyness +=2
         tired-=1
+        loopwithoutminus = True
+        hauptloop()
     else:
         desc.config(text= petname + " is already very happy and doesnt want to play!")
-    loopwithoutminus = True
-    hauptloop()
+    
 def newtype():
     global current_variant, petexpressions, loopwithoutminus
-    current_variant= random.choice(variants)
+    chance= random.choice(variantchance)
+    if chance==2:
+        current_variant= random.choice(uncommonvariants)
+    else:
+        current_variant= random.choice(commonvariants)
     file = open("save.txt","w")
     file.write(str([petname, musicactive, current_variant]))
     file.close()
@@ -257,6 +277,10 @@ def newtype():
         hauptloop()
     if current_variant=="regular":
         petexpressions=["images/virtual pet 1.png", "images/virtual pet happy.png", "images/virtual pet sad.png", "images/virtual pet sleeping.png", "images/virtual pet tired.png", "images/virtual pet very happy.png", "images/virtual pet 2.png"]
+        loopwithoutminus = True
+        hauptloop()
+    if current_variant=="lolita":
+        petexpressions=["images/cutet 1.png", "images/cute happy.png", "images/cute sad.png", "images/cute sleeping.png", "images/cute tired.png", "images/cute very happy.png", "images/cute 2.png"]
         loopwithoutminus = True
         hauptloop()
         
@@ -332,6 +356,11 @@ def musicsettings():
         file.close()
 
 buttonframe.pack(pady=1, padx=1)
+framebelowbutton = Frame (
+    mainframe,
+    bg =bg_color
+)
+framebelowbutton.pack(pady=1, padx=1)
 
 food_button = tkinter.Button(
     buttonframe,
@@ -381,6 +410,12 @@ play_button = tkinter.Button(
     highlightthickness=0
 )
 play_button.pack(side=LEFT, padx=3)
+label1= tkinter.Label(framebelowbutton, background= bg_color, text= "food", fg= font_color)
+label1.pack(side=LEFT, pady=3, padx=32)
+label2= tkinter.Label(framebelowbutton, background= bg_color, text= "sleep", fg= font_color)
+label2.pack(side=LEFT, pady=3, padx=5)
+label3= tkinter.Label(framebelowbutton, background= bg_color, text= "play", fg= font_color)
+label3.pack(side=LEFT, pady=3, padx=32)
 pucut = tkinter.Label(mainframe, image=petzoomed, background= bg_color)
 pucut.pack(anchor=S, pady=5)
 desc= tkinter.Label(mainframe, background= bg_color, text= petname + " is happy", font= font2, fg= font_color, wraplength=300
