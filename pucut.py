@@ -1,5 +1,5 @@
 #colorscheme: 574964, 9F8383, C8AAAA, FFDAB3
-# basics almost done, to-do: adding (more) variants, maybe a mini-game for playing? also "time without incident" and "record time" and font settings
+# basics almost done, to-do: adding (more) variants, maybe a mini-game for playing? also "time without incident" and "record time"
 #planned variants: foresty, bot  maybe?
 import ctypes
 import os
@@ -53,6 +53,9 @@ uncommonvariants= ["lolita"]
 variantchance= [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
 loopwithoutminus= False
 readablemode= False
+incident= False
+longesttimewithoutincident= 0
+timewithoutincident= 0
 
 try:
     libfc = ctypes.CDLL("libfontconfig.so.1")
@@ -87,7 +90,7 @@ def setname():
     global petname
     petname= nameset.get()
     file = open("save.txt","w")
-    file.write(str([petname, musicactive, current_variant, readablemode]))
+    file.write(str([petname, musicactive, current_variant, readablemode, longesttimewithoutincident]))
     file.close()
     
 def namepet():
@@ -106,11 +109,11 @@ def namepet():
     command=setname)
     submit.pack(pady=5)
 def iniiiiiit():
-    global petname, musicactive, current_variant, petexpressions, loopwithoutminus, readablemode
+    global petname, musicactive, current_variant, petexpressions, loopwithoutminus, readablemode, longesttimewithoutincident
     file = open("save.txt","r")
     file_list = eval(file.read())
     file.close()
-    petname, musicactive, current_variant, readablemode= file_list
+    petname, musicactive, current_variant, readablemode, longesttimewithoutincident= file_list
     if current_variant== "none":
         chance= random.choice(variantchance)
         if chance==1:
@@ -118,7 +121,7 @@ def iniiiiiit():
         else:
             current_variant= random.choice(commonvariants)
         file = open("save.txt","w")
-        file.write(str([petname, musicactive, current_variant, readablemode]))
+        file.write(str([petname, musicactive, current_variant, readablemode, longesttimewithoutincident]))
         file.close()
         print(current_variant)
     if petname== "none":
@@ -142,8 +145,9 @@ def iniiiiiit():
         hauptloop()
     if readablemode:
         desc.config(font= "Arial")
+    incidentloop()
 def hauptloop():
-    global happyness, tired, pet, petzoomed, loopwithoutminus
+    global happyness, tired, pet, petzoomed, loopwithoutminus, incident
     
     if sleeping is False and loopwithoutminus== False:
         if happynesscycle:
@@ -153,36 +157,42 @@ def hauptloop():
                tired -=1
         if happyness<=3 and tired>=3:
         #make bg music sad here
+            incident=False
             pet = tkinter.PhotoImage(file= petexpressions[2])
             if readablemode== False:
                 desc.config(text= petname +  " is sad :(", font= font2, fg= font_color)
             else:
                 desc.config(text= petname +  " is sad :(", font= "Arial", fg= font_color)
         if happyness>=4 and tired>=3:
+            incident=False
             pet = tkinter.PhotoImage(file= petexpressions[0])
             if readablemode== False:
                 desc.config(text= petname +  " doesnt feel so great", font= font2, fg= font_color)
             else:
                 desc.config(text= petname +  " doesnt feel so great", font= "Arial", fg= font_color)
         if happyness>=6 and tired>=3:
+            incident=False
             pet = tkinter.PhotoImage(file= petexpressions[1])
             if readablemode== False:
                 desc.config(text= petname +  " feels alright!", font= font2, fg= font_color)
             else:
                 desc.config(text= petname +  " feels alright!", font= "Arial", fg= font_color)
         if happyness>=8 and tired>=3:
+            incident=False
             pet = tkinter.PhotoImage(file= petexpressions[5])
             if readablemode== False:
                 desc.config(text= petname +  " is very happy and feels loved :D", font= font2, fg= font_color)
             else:
                 desc.config(text= petname +  " is very happy and feels loved :D", font= "Arial", fg= font_color)
         if tired<=3 and happyness >=2:
+            incident=False
             pet= tkinter.PhotoImage(file= petexpressions[4])
             if readablemode== False:
                 desc.config(text= petname +  " is very tired and slowly sinking into existential dread.", font= font2, fg= font_color)
             else:
                 desc.config(text= petname +  " is very tired and slowly sinking into existential dread.", font= "Arial", fg= font_color)
         if tired<=3 and happyness <=1:
+            incident=True
             pet= tkinter.PhotoImage(file= petexpressions[6])
             if readablemode== False:
                 desc.config(text= "IzhsbskuoIGUFVsuiazgboa", font= font1, fg= "black")
@@ -195,37 +205,42 @@ def hauptloop():
         window.after(10000, hauptloop)
     if sleeping== False and loopwithoutminus == True:
         if happyness<=3 and tired>=3:
-        #make bg music sad here
+            incident=False
             pet = tkinter.PhotoImage(file= petexpressions[2])
             if readablemode== False:
                 desc.config(text= petname +  " is sad :(", font= font2, fg= font_color)
             else:
                 desc.config(text= petname +  " is sad :(", font= "Arial", fg= font_color)
         if happyness>=4 and tired>=3:
+            incident=False
             pet = tkinter.PhotoImage(file= petexpressions[0])
             if readablemode== False:
                 desc.config(text= petname +  " doesnt feel so great", font= font2, fg= font_color)
             else:
                 desc.config(text= petname +  " doesnt feel so great", font= "Arial", fg= font_color)
         if happyness>=6 and tired>=3:
+            incident=False
             pet = tkinter.PhotoImage(file= petexpressions[1])
             if readablemode== False:
                 desc.config(text= petname +  " feels alright!", font= font2, fg= font_color)
             else:
                 desc.config(text= petname +  " feels alright!", font= "Arial", fg= font_color)
         if happyness>=8 and tired>=3:
+            incident=False
             pet = tkinter.PhotoImage(file= petexpressions[5])
             if readablemode== False:
                 desc.config(text= petname +  " is very happy and feels loved :D", font= font2, fg= font_color)
             else:
                 desc.config(text= petname +  " is very happy and feels loved :D", font= "Arial", fg= font_color)
         if tired<=3 and happyness >=2:
+            incident=False
             pet= tkinter.PhotoImage(file= petexpressions[4])
             if readablemode== False:
                 desc.config(text= petname +  " is very tired and slowly sinking into existential dread.", font= font2, fg= font_color)
             else:
                 desc.config(text= petname +  " is very tired and slowly sinking into existential dread.", font= "Arial", fg= font_color)
         if tired<=3 and happyness <=1:
+            incident=True
             pet= tkinter.PhotoImage(file= petexpressions[6])
             if readablemode== False:
                 desc.config(text= "IzhsbskuoIGUFVsuiazgboa", font= font1, fg= "black")
@@ -237,6 +252,18 @@ def hauptloop():
         window.after(10000, hauptloop)
 
     #maybe i should update the window here? idk
+def incidentloop():
+    global incident, longesttimewithoutincident, timewithoutincident
+    if incident==False:
+        timewithoutincident +=1
+        if longesttimewithoutincident<=timewithoutincident:
+            longesttimewithoutincident= timewithoutincident
+            file = open("save.txt","w")
+            file.write(str([petname, musicactive, current_variant, readablemode, longesttimewithoutincident]))
+            file.close()
+    else:
+        timewithoutincident= 0
+    window.after(1000, incidentloop)
 def musicloop():
     global musictone
     if musicactive:
@@ -308,7 +335,7 @@ def newtype():
     else:
         current_variant= random.choice(commonvariants)
     file = open("save.txt","w")
-    file.write(str([petname, musicactive, current_variant, readablemode]))
+    file.write(str([petname, musicactive, current_variant, readablemode, longesttimewithoutincident]))
     file.close()
     print(current_variant)
     if current_variant== "space":
@@ -331,7 +358,7 @@ def changereadablemode():
     else:
         readablemode= True 
     file = open("save.txt","w")
-    file.write(str([petname, musicactive, current_variant, readablemode]))
+    file.write(str([petname, musicactive, current_variant, readablemode, longesttimewithoutincident]))
     file.close()
     loopwithoutminus= True
     hauptloop()     
@@ -417,6 +444,8 @@ def open_numberwin():
     edge33.place(relx=1.0, rely=1.0, anchor=tkinter.SE)
     edge43 = tkinter.Label(number_win, image=edgedecor4, background= bg_color)
     edge43.place(relx=0.0, rely=1.0, anchor=tkinter.SW)
+    incidentcounter1= tkinter.Label(number_win, text= "Time since last incident: " + str(timewithoutincident), background=bg_color, fg=font_color)
+    incidentcounter1.pack(pady=20)
     
 def musicsettings():
     global musicactive
@@ -424,13 +453,13 @@ def musicsettings():
         musicactive= False
         pygame.mixer.music.stop()
         file = open("save.txt","w")
-        file.write(str([petname, musicactive, current_variant, readablemode]))
+        file.write(str([petname, musicactive, current_variant, readablemode, longesttimewithoutincident]))
         file.close()
     else:
         musicactive = True
         musicloop()
         file = open("save.txt","w")
-        file.write(str([petname, musicactive, current_variant, readablemode]))
+        file.write(str([petname, musicactive, current_variant, readablemode, longesttimewithoutincident]))
         file.close()
 
 buttonframe.pack(pady=1, padx=1)
