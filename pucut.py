@@ -1,5 +1,5 @@
 #colorscheme: 574964, 9F8383, C8AAAA, FFDAB3
-# basics almost done, to-do: adding (more) variants, maybe a mini-game for playing? also "time without incident" and "record time"
+# basics almost done, to-do: adding (more) variants, maybe a mini-game for playing? 
 #planned variants: foresty, bot  maybe?
 import ctypes
 import os
@@ -14,7 +14,7 @@ font_color= "#FFDAB3"
 happyness= 10
 tired= 10
 window = Tk()
-window.geometry("420x580")
+window.geometry("420x590")
 window.title("Pucut <3")
 icon_image = tkinter.PhotoImage(file="images/icon.png")
 window.iconphoto(False, icon_image)
@@ -48,7 +48,7 @@ nameset = tkinter.StringVar()
 fontpath1 = os.path.abspath("fonts/Kablammo/Kablammo-Regular-VariableFont_MORF.ttf")
 fontpath2 = os.path.abspath("fonts/Rubik_Glitch/RubikGlitch-Regular.ttf")
 current_variant= "none"
-commonvariants= ["regular", "space", "red"]
+commonvariants= ["regular", "space", "red", "tree"]
 uncommonvariants= ["lolita"]
 variantchance= [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
 loopwithoutminus= False
@@ -145,6 +145,10 @@ def iniiiiiit():
         hauptloop()
     if current_variant== "red":
         petexpressions=["images/r 1.png", "images/r happy.png", "images/r sad.png", "images/r sleeping.png", "images/r tired.png", "images/r very happy.png", "images/r 2.png"]
+        loopwithoutminus = True
+        hauptloop()
+    if current_variant== "tree":
+        petexpressions=["images/tree 1.png", "images/treet happy.png", "images/tree sad.png", "images/tree sleeping.png", "images/tree tired.png", "images/tree very happy.png", "images/tree 2.png"]
         loopwithoutminus = True
         hauptloop()
     if readablemode:
@@ -355,6 +359,10 @@ def newtype():
         petexpressions=["images/cutet 1.png", "images/cute happy.png", "images/cute sad.png", "images/cute sleeping.png", "images/cute tired.png", "images/cute very happy.png", "images/cute 2.png"]
         loopwithoutminus = True
         hauptloop()
+    if current_variant=="tree":
+        petexpressions=["images/tree 1.png", "images/treet happy.png", "images/tree sad.png", "images/tree sleeping.png", "images/tree tired.png", "images/tree very happy.png", "images/tree 2.png"]
+        loopwithoutminus = True
+        hauptloop()
 
 def changereadablemode():
     global readablemode, loopwithoutminus
@@ -371,9 +379,11 @@ def changereadablemode():
 def open_settings():
     settings_win = tkinter.Toplevel(
         bg= bg_color,)
-    settings_win.title("Settings")
-    settings_win.geometry("250x200")
+    settings_win.title("")
+    settings_win.geometry("250x260")
     settings_win.attributes('-topmost', True)
+    settingsheading= tkinter.Label(settings_win, text= "Settings", background=bg_color, fg=font_color, font= 15)
+    settingsheading.pack(pady=10)
     edge12 = tkinter.Label(settings_win, image=edgedecor, background= bg_color)
     edge12.place(relx=0.0, rely=0.0, anchor=tkinter.NW)
     edge22 = tkinter.Label(settings_win, image=edgedecor2, background= bg_color)
@@ -441,7 +451,7 @@ def open_numberwin():
     global incidentcounter1, incidentcounter2, happinesscounter, tiredcounter
     number_win = tkinter.Toplevel(
         bg= bg_color,)
-    number_win.title("Settings")
+    number_win.title("")
     number_win.geometry("235x225")
     number_win.attributes('-topmost', True)
     statsheading= tkinter.Label(number_win, text= "Health & More", background=bg_color, fg=font_color, font= 15)
@@ -471,7 +481,7 @@ def open_numberwin():
     incidentcounter2.pack(pady= 5)
     happinesscounter= tkinter.Label(idkframe2, text= "Happiness: " + str(happyness), background=bg_color, fg=font_color)
     happinesscounter.pack(pady=5)
-    tiredcounter= tkinter.Label(idkframe2, text= "Tiredness: " + str(tired), background=bg_color, fg=font_color)
+    tiredcounter= tkinter.Label(idkframe2, text= "Awakeness: " + str(tired), background=bg_color, fg=font_color)
     tiredcounter.pack(pady= 5)
     update_cycle()
 

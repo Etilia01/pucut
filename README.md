@@ -1,18 +1,35 @@
 <h1>Pucut!</h1>
-The digital pet of your dreams! (And maybe thats exactly where the Organisation got it from...)
-Available now for Linux only! Because I didnt test it anywhere else! Might work on other systems too but I doubt it! (This code is held together by ducttape and prayers)
-Made with Python Tkinter and Aseprite (Aseprite is great. Use aseprite. Im not even being paid to say this)
+<p>The digital pet of your dreams! (And maybe thats exactly where the Organisation got it from...)</p>
+<p>Available now for Linux only! Because I didnt test it anywhere else! Might work on other systems too but I doubt it! (This code is held together by ducttape and prayers)</p>
+<p>Made with Python Tkinter and Aseprite (Aseprite is great. Use aseprite. Im not even being paid to say this)</p>
 
 <h2>Installation!</h2>
-1. Download from releases
-2. Extract~
-3. Done!
-To start just click on pucut.
+<p>1. Download from releases</p>
+<p>2. Extract~</p>
+<p>3. Done!</p>
+<p>To start just click on pucut.</p>
 
 <h2>Usage!</h2>
-First of all: Gambling!! /hj
-Your Pucut variant is randomly chosen, with most being of regular odds but one super duper rare lolita variant!
+<h4>First of all: Gambling!! /hj</h4>
+Your Pucut variant is randomly chosen, with most being common but one super duper rare lolita variant also exists!
 Didnt get the one you wanted? No worries! Just reroll in settings later!
 
-Name your Pucut!
+<h4>Name your Pucut!</h4>
 Youre able to choose a name for your pucut, which is saved. Dont think about it too much tho, you can always change it later :)
+
+<h3>Different windows idk:</h3>
+
+<h4>Health & More:</h4>
+<p>You can find this menu here:</p>
+<p>Time since last incident is how long youve managed to keep your pucut happy & healthy and not in eldritch mode. Record time is the longest youve ever done that!</p>
+
+<p>Happiness is how happy your pucut is! Increase it with either food or play, but play while it increases happiness faster also makes your pucut really tired</p>
+
+<p>Awakeness is how tired your pucut is! Increase it by sleeping!</p>
+
+Settings:
+Settings is this menu:
+You can enable readable mode, which changes the fonts to be more readable
+You can enable or disable the background music
+You can rename your pucut
+You can reroll the pucut type
