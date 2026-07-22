@@ -442,8 +442,20 @@ def open_numberwin():
     number_win = tkinter.Toplevel(
         bg= bg_color,)
     number_win.title("Settings")
-    number_win.geometry("250x200")
+    number_win.geometry("235x225")
     number_win.attributes('-topmost', True)
+    statsheading= tkinter.Label(number_win, text= "Health & More", background=bg_color, fg=font_color, font= 15)
+    statsheading.pack(pady=10)
+    idkframe = Frame(
+        number_win,
+        bg=bg_color
+    )
+    idkframe.pack(pady=10)
+    idkframe2 = Frame(
+        number_win,
+        bg=bg_color
+    )
+    idkframe2.pack(pady=10)
     edge13 = tkinter.Label(number_win, image=edgedecor, background= bg_color)
     edge13.place(relx=0.0, rely=0.0, anchor=tkinter.NW)
     edge23 = tkinter.Label(number_win, image=edgedecor2, background= bg_color)
@@ -452,14 +464,15 @@ def open_numberwin():
     edge33.place(relx=1.0, rely=1.0, anchor=tkinter.SE)
     edge43 = tkinter.Label(number_win, image=edgedecor4, background= bg_color)
     edge43.place(relx=0.0, rely=1.0, anchor=tkinter.SW)
-    incidentcounter1= tkinter.Label(number_win, text= "Time since last incident: " + str(timewithoutincident), background=bg_color, fg=font_color)
-    incidentcounter1.pack(pady=21)
-    incidentcounter2= tkinter.Label(number_win, text= "Record time since last incident: " + str(longesttimewithoutincident), background=bg_color, fg=font_color)
-    incidentcounter2.pack(pady=1)
-    happinesscounter= tkinter.Label(number_win, text= "Happiness: " + str(happyness), background=bg_color, fg=font_color)
-    happinesscounter.pack(pady=11)
-    tiredcounter= tkinter.Label(number_win, text= "Tiredness: " + str(tired), background=bg_color, fg=font_color)
-    tiredcounter.pack(pady=11)
+    
+    incidentcounter1= tkinter.Label(idkframe, text= "Time since last incident: " + str(timewithoutincident), background=bg_color, fg=font_color)
+    incidentcounter1.pack(pady=5)
+    incidentcounter2= tkinter.Label(idkframe, text= "Record time since last incident: " + str(longesttimewithoutincident), background=bg_color, fg=font_color)
+    incidentcounter2.pack(pady= 5)
+    happinesscounter= tkinter.Label(idkframe2, text= "Happiness: " + str(happyness), background=bg_color, fg=font_color)
+    happinesscounter.pack(pady=5)
+    tiredcounter= tkinter.Label(idkframe2, text= "Tiredness: " + str(tired), background=bg_color, fg=font_color)
+    tiredcounter.pack(pady= 5)
     update_cycle()
 
 def update_cycle():

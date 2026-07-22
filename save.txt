@@ -1,1 +1,1 @@
-['poigufz', True, 'red', True, 32]
+['poigufz', True, 'lolita', False, 34]
