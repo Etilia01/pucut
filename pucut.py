@@ -56,6 +56,10 @@ readablemode= False
 incident= False
 longesttimewithoutincident= 0
 timewithoutincident= 0
+incidentcounter1= None
+incidentcounter2= None
+happinesscounter= None
+tiredcounter= None
 
 try:
     libfc = ctypes.CDLL("libfontconfig.so.1")
@@ -250,6 +254,7 @@ def hauptloop():
         pucut.config(image=petzoomed)
         loopwithoutminus= False
         window.after(10000, hauptloop)
+    
 
     #maybe i should update the window here? idk
 def incidentloop():
@@ -430,11 +435,14 @@ def open_settings():
     fg= font_color,
     activebackground= "#C8AAAA",)
     submit3.pack(pady=10)
+
+
 def open_numberwin():
+    global incidentcounter1, incidentcounter2, happinesscounter, tiredcounter
     number_win = tkinter.Toplevel(
         bg= bg_color,)
     number_win.title("Settings")
-    number_win.geometry("200x200")
+    number_win.geometry("250x200")
     number_win.attributes('-topmost', True)
     edge13 = tkinter.Label(number_win, image=edgedecor, background= bg_color)
     edge13.place(relx=0.0, rely=0.0, anchor=tkinter.NW)
@@ -445,7 +453,23 @@ def open_numberwin():
     edge43 = tkinter.Label(number_win, image=edgedecor4, background= bg_color)
     edge43.place(relx=0.0, rely=1.0, anchor=tkinter.SW)
     incidentcounter1= tkinter.Label(number_win, text= "Time since last incident: " + str(timewithoutincident), background=bg_color, fg=font_color)
-    incidentcounter1.pack(pady=20)
+    incidentcounter1.pack(pady=21)
+    incidentcounter2= tkinter.Label(number_win, text= "Record time since last incident: " + str(longesttimewithoutincident), background=bg_color, fg=font_color)
+    incidentcounter2.pack(pady=1)
+    happinesscounter= tkinter.Label(number_win, text= "Happiness: " + str(happyness), background=bg_color, fg=font_color)
+    happinesscounter.pack(pady=11)
+    tiredcounter= tkinter.Label(number_win, text= "Tiredness: " + str(tired), background=bg_color, fg=font_color)
+    tiredcounter.pack(pady=11)
+    update_cycle()
+
+def update_cycle():
+    if incidentcounter1 is not None:
+        incidentcounter1.config(text= "Time since last incident: " + str(timewithoutincident))
+        incidentcounter2.config(text= "Record time since last incident: " + str(longesttimewithoutincident))
+        happinesscounter.config(text= "Happiness: " + str(happyness))
+        tiredcounter.config(text= "Tiredness: " + str(tired))
+        window.after(1000, update_cycle)    
+
     
 def musicsettings():
     global musicactive
