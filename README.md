@@ -11,6 +11,13 @@
 
 <h2>Usage!</h2>
 <h4>First of all: Gambling!! /hj</h4>
+<img width="64" height="64" alt="image" src="https://github.com/user-attachments/assets/dd02f84a-899a-45bc-9749-170fcf41cd10" /><img width="64" height="64" alt="image" src="https://github.com/user-attachments/assets/515b9f70-fbf8-4948-8d84-6aecb49239aa" /><img width="64" height="64" alt="image" src="https://github.com/user-attachments/assets/ffdf2bbc-4312-42c5-b5ed-79ddb9153c44" /><img width="64" height="64" alt="image" src="https://github.com/user-attachments/assets/b80e2f19-3d2f-4a23-a10f-22144dec61ba" /><img width="64" height="64" alt="image" src="https://github.com/user-attachments/assets/516dde79-b355-48bf-bafc-7ae7dda1112c" />
+
+
+
+
+
+
 Your Pucut variant is randomly chosen, with most being common but one super duper rare lolita variant also exists!
 Didnt get the one you wanted? No worries! Just reroll in settings later!
 
