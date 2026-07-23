@@ -14,12 +14,12 @@
 Your Pucut variant is randomly chosen, with most being common but one super duper rare lolita variant also exists!
 Didnt get the one you wanted? No worries! Just reroll in settings later!
 
-<h4>Name your Pucut!</h4>
+**Name your Pucut!**
 Youre able to choose a name for your pucut, which is saved. Dont think about it too much tho, you can always change it later :)
 
 <h3>Different windows idk:</h3>
 
-<h4>Health & More:</h4>
+**Health & More:**
 <p>You can find this menu here:</p>
 <p>Time since last incident is how long youve managed to keep your pucut happy & healthy and not in eldritch mode. Record time is the longest youve ever done that!</p>
 
@@ -27,9 +27,9 @@ Youre able to choose a name for your pucut, which is saved. Dont think about it 
 
 <p>Awakeness is how tired your pucut is! Increase it by sleeping!</p>
 
-Settings:
-Settings is this menu:
-You can enable readable mode, which changes the fonts to be more readable
-You can enable or disable the background music
-You can rename your pucut
-You can reroll the pucut type
+**Settings:**
+<p>Settings is this menu:</p>
+<p>You can enable readable mode, which changes the fonts to be more readable</p>
+<p>You can enable or disable the background music</p>
+<p>You can rename your pucut</p>
+<p>You can reroll the pucut type</p>
