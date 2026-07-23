@@ -40,3 +40,6 @@ Youre able to choose a name for your pucut, which is saved. Dont think about it 
 <p>You can enable or disable the background music</p>
 <p>You can rename your pucut</p>
 <p>You can reroll the pucut type</p>
+
+<h2>About the developments...</h2>
+Technically i used tkinter before very recently but god this was hard T~T. At first i wanted to do everything nice and how youre supposed to like using actual for- and while-loops etc BUT THEN EVERYTHING JUST BROKE. so now i just have a ton of "wait this many seconds then start the function again" and that works too ig. Also the odds system for the variants turned out quite strange, im sorry...
