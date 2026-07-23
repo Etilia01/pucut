@@ -34,7 +34,7 @@ Youre able to choose a name for your pucut, which is saved. Dont think about it 
 <p>You can find this menu here:</p>
 <img width="236" height="226" alt="Screenshot from 2026-07-23 14-24-27" src="https://github.com/user-attachments/assets/b9e8b652-2d2f-458f-84f1-6d8752b977f8" />
 
-<p>Time since last incident is how long youve managed to keep your pucut happy & healthy and not in eldritch mode. Record time is the longest youve ever done that!</p>
+<p>Time since last incident is how long youve managed to keep your pucut happy & healthy and not in eldritch mode. ( youll know what eldritch mode is when you see it...) Record time is the longest youve ever done that!</p>
 
 <p>Happiness is how happy your pucut is! Increase it with either food or play, but play while it increases happiness faster also makes your pucut really tired</p>
 
@@ -49,7 +49,7 @@ Youre able to choose a name for your pucut, which is saved. Dont think about it 
 <p>You can rename your pucut</p>
 <p>You can reroll the pucut type</p>
 
-**Pucuts different moods:**
+
 
 <h2>About the development...</h2>
 Technically i used tkinter before very recently but god this was hard T~T. At first i wanted to do everything nice and how youre supposed to like using actual for- and while-loops etc BUT THEN EVERYTHING JUST BROKE. so now i just have a ton of "wait this many seconds then start the function again" and that works too ig. Also the odds system for the variants turned out quite strange, im sorry...
